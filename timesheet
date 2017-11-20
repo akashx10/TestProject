@@ -1,0 +1,82 @@
+package newpackage;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class MyClass {
+	
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.gecko.driver","E:\\\\Selenium\\geckodriver-v0.18.0-win64\\geckodriver.exe");
+		
+		WebDriver driver = new FirefoxDriver();
+		
+		driver.get("http://imagic.magicsw.com/btt/login.jsp");
+		driver.findElement(By.xpath("//input[@id='userid']")).sendKeys("v-akash.saini");
+		driver.findElement(By.xpath("//input[@id='password']")).sendKeys("cheerspeace");
+		driver.findElement(By.xpath("//img[@src = 'images/go_new.png']")).click();
+		WebElement element = driver.findElement(By.xpath("//div[@id='imagiclogo']"));
+		Actions action = new Actions(driver);
+		action.moveToElement(element).build().perform();
+		driver.findElement(By.xpath("//a[@href='AddEditTimesheet.action']")).click();
+		String winHandleBefore = driver.getWindowHandle();
+		WebElement link = driver.findElement(By.xpath("//a[@href='https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile%20https://www.googleapis.com/auth/userinfo.email&redirect_uri=http://timesheet.magicsw.com/TTS/googlelogin.htm&response_type=code&client_id=460874234652-2sbuq5qinv9vpivkmsf3og7an99sb3na.apps.googleusercontent.com']"));
+		Actions newwin = new Actions(driver);
+		newwin.keyDown(Keys.SHIFT).click(link).keyUp(Keys.SHIFT).build().perform();
+		Thread.sleep(6000);
+		for(String winHandle : driver.getWindowHandles()){
+		    driver.switchTo().window(winHandle);
+		}
+		//driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		//Actions action1= new Actions(driver);
+		//action1.keyDown(Keys.CONTROL).sendKeys(Keys.TAB).build().perform();
+		//Thread.sleep(2000);
+		//WebDriverWait wait=new WebDriverWait(driver, 20);
+		
+		
+		/* driver.findElement(By.xpath("//input[@id='identifierId']")).sendKeys("v-akash.saini@magicsw.com");
+	        driver.findElement(By.xpath("//span[@class='RveJvd snByac']")).click();
+	        Thread.sleep(5000);
+	        driver.findElement(By.xpath("//input[@type='password']")).sendKeys("cheerspeace");
+	        driver.findElement(By.xpath("//span[text()='Next']")).click();
+	        Thread.sleep(5000);*/
+		
+		
+		
+		driver.findElement(By.id("identifierId")).sendKeys("v-akash.saini@magicsw.com");
+		//driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		//WebDriverWait wait=new WebDriverWait(driver, 20);
+		driver.findElement(By.xpath("//span[@class='RveJvd snByac']")).click();
+	    Thread.sleep(5000);
+		//driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//input[@class='whsOnd zHQkBf']")).sendKeys("cheerspeace");
+		driver.findElement(By.xpath("//span[@class='RveJvd snByac']")).click();
+		Thread.sleep(5000);
+		
+		driver.findElement(By.xpath("//img[@src='images/tsheet.jpg']")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//img[@src='images/next7.jpg']")).click();
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+		//Thread.sleep(5000);
+		WebElement myDynamicElement = (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.id("selProject0")));
+		new Select(driver.findElement(By.id("selProject0"))).selectByIndex(1); //selectByVisibleText("HMH QA Retain Team");
+		//driver.findElement(By.xpath(""))
+		
+		
+		//driver.findElement(By.xpath(""))
+		//driver.quit();
+		
+	}
+}
